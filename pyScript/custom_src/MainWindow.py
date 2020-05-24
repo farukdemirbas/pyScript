@@ -62,6 +62,9 @@ class MainWindow(QMainWindow):
         # }  # {node: QImage}
 
 
+        if not os.path.exists('temp'):
+            os.mkdir('temp')
+
         # clear temp folder
         for f in os.listdir('temp'):
             os.remove('temp/'+f)
