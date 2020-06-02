@@ -10,9 +10,9 @@ import cv2
 # self.main_widget                      <- access to main widget
 
 
-class ReadImg_NodeInstance(NodeInstance):
+class ReadImage_NodeInstance(NodeInstance):
     def __init__(self, parent_node: Node, flow, configuration=None):
-        super(ReadImg_NodeInstance, self).__init__(parent_node, flow, configuration)
+        super(ReadImage_NodeInstance, self).__init__(parent_node, flow, configuration)
 
         # self.special_actions['action name'] = self.actionmethod ...
         self.image_filepath = ''

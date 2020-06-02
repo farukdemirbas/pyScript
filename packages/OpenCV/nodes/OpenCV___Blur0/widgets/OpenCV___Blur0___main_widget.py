@@ -8,9 +8,9 @@ from PySide2.QtWidgets import QLabel
 import cv2
 
 
-class BlurImg_NodeInstance_MainWidget(QLabel):
+class Blur_NodeInstance_MainWidget(QLabel):
     def __init__(self, parent_node_instance):
-        super(BlurImg_NodeInstance_MainWidget, self).__init__()
+        super(Blur_NodeInstance_MainWidget, self).__init__()
 
         # leave these lines ------------------------------
         self.parent_node_instance = parent_node_instance

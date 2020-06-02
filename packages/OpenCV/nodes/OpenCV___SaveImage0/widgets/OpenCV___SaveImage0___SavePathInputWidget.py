@@ -1,20 +1,18 @@
-# from PySide2.QtWidgets import ...
+from PySide2.QtWidgets import QPushButton, QFileDialog
 from PySide2.QtCore import Signal
 # from PySide2.QtGui import ...
 
-from PySide2.QtWidgets import QPushButton, QFileDialog
-
-
-class PathInputWidget_PortInstanceWidget(QPushButton):
+class SavePathInputWidget_PortInstanceWidget(QPushButton):
     path_chosen = Signal(str)
 
     def __init__(self, parent_port_instance, parent_node_instance):
-        super(PathInputWidget_PortInstanceWidget, self).__init__('select')
+        super(SavePathInputWidget_PortInstanceWidget, self).__init__()
 
         # leave these lines ------------------------------
         self.parent_port_instance = parent_port_instance
         self.parent_node_instance = parent_node_instance
         # ------------------------------------------------
+
         self.setStyleSheet('''
             color: #cccccc;
             border-radius: 5px;
@@ -29,7 +27,7 @@ class PathInputWidget_PortInstanceWidget(QPushButton):
         self.clicked.connect(self.button_clicked)
 
     def button_clicked(self):
-        file_path = QFileDialog.getOpenFileName(self, 'select image')[0]
+        file_path = QFileDialog.getSaveFileName(self, 'select image')[0]
         self.path_chosen.emit(file_path)
 
     def get_data(self):

@@ -7,9 +7,9 @@ from PySide2.QtWidgets import QLabel
 import cv2
 
 
-class CannyEdgeDetOnImg_NodeInstance_MainWidget(QLabel):
+class CannyEdgeDetection_NodeInstance_MainWidget(QLabel):
     def __init__(self, parent_node_instance):
-        super(CannyEdgeDetOnImg_NodeInstance_MainWidget, self).__init__()
+        super(CannyEdgeDetection_NodeInstance_MainWidget, self).__init__()
 
         # leave these lines ------------------------------
         self.parent_node_instance = parent_node_instance

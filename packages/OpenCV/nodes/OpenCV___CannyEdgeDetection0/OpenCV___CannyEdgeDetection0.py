@@ -10,9 +10,9 @@ import cv2
 # self.main_widget                    <- access to main widget
 
 
-class CannyEdgeDetOnImg_NodeInstance(NodeInstance):
+class CannyEdgeDetection_NodeInstance(NodeInstance):
     def __init__(self, parent_node: Node, flow, configuration=None):
-        super(CannyEdgeDetOnImg_NodeInstance, self).__init__(parent_node, flow, configuration)
+        super(CannyEdgeDetection_NodeInstance, self).__init__(parent_node, flow, configuration)
 
         # self.special_actions['action name'] = self.actionmethod ...
         self.img_normal = None
