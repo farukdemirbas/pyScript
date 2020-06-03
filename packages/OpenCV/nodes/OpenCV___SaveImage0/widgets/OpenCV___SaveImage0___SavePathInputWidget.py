@@ -6,7 +6,7 @@ class SavePathInputWidget_PortInstanceWidget(QPushButton):
     path_chosen = Signal(str)
 
     def __init__(self, parent_port_instance, parent_node_instance):
-        super(SavePathInputWidget_PortInstanceWidget, self).__init__()
+        super(SavePathInputWidget_PortInstanceWidget, self).__init__("Select")
 
         # leave these lines ------------------------------
         self.parent_port_instance = parent_port_instance
@@ -27,7 +27,7 @@ class SavePathInputWidget_PortInstanceWidget(QPushButton):
         self.clicked.connect(self.button_clicked)
 
     def button_clicked(self):
-        file_path = QFileDialog.getSaveFileName(self, 'select image')[0]
+        file_path = QFileDialog.getSaveFileName(self, 'Save')[0]
         self.path_chosen.emit(file_path)
 
     def get_data(self):

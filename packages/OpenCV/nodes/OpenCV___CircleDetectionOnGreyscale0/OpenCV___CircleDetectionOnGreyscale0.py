@@ -1,6 +1,7 @@
 from custom_src.NodeInstance import NodeInstance
 from custom_src.Node import Node
 
+
 # API METHODS
 
 # self.main_widget        <- access to main widget
@@ -25,44 +26,42 @@ from custom_src.Node import Node
 
 # ------------------------------------------------------------------------------
 
-
 import cv2
+import numpy as np
 
-class SaveImage_NodeInstance(NodeInstance):
+class CircleDetectionOnGreyscale_NodeInstance(NodeInstance):
     def __init__(self, parent_node: Node, flow, configuration=None):
-        super(SaveImage_NodeInstance, self).__init__(parent_node, flow, configuration)
+        super(CircleDetectionOnGreyscale_NodeInstance, self).__init__(parent_node, flow, configuration)
 
         # self.special_actions['action name'] = self.actionmethod ...
-        self.image_filepath = ''
-        self.img = None
-        self.inputs[1].widget.path_chosen.connect(self.path_chosen)
+        # ...
 
         self.initialized()
 
+    # don't call self.update_event() directly, use self.update() instead
     def update_event(self, input_called=-1):
-        if input_called != 0:
-            print("Passing...")
-            return
+        self.image = self.input(0)
+        self.grayImage = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
 
-        self.img = self.input(2)
-        try:
-            print('Saving to path:', self.image_filepath)
-            cv2.imwrite(self.image_filepath, self.img)
-            self.main_widget.set_path_text(self.image_filepath)
-        except Exception as e:
-            self.main_widget.setText('Invalid path.')
-            print(e)
+        circles = cv2.HoughCircles(self.grayImage, cv2.HOUGH_GRADIENT, self.input(1), self.input(2))
+
+        circles = np.uint16(np.around(circles))
+        for i in circles[0,:]:
+            # draw the outer circle
+            cv2.circle(self.image,(i[0],i[1]),i[2],(0,255,0),2)
+            # draw the center of the circle
+            cv2.circle(self.image,(i[0],i[1]),2,(0,0,255),3)
+
+        self.main_widget.show_image(self.image)
+        self.outputs[0].set_val(self.image)
 
     def get_data(self):
-        data = {'image file path': self.image_filepath}
+        data = {}
+        # ...
         return data
 
     def set_data(self, data):
-        self.image_filepath = data['image file path']
-
-    def path_chosen(self, file_path):
-        self.image_filepath = file_path
-        self.update()
+        pass # ...
 
 
 

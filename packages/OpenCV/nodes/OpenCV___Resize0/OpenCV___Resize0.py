@@ -25,44 +25,32 @@ from custom_src.Node import Node
 
 # ------------------------------------------------------------------------------
 
-
 import cv2
 
-class SaveImage_NodeInstance(NodeInstance):
+class Resize_NodeInstance(NodeInstance):
     def __init__(self, parent_node: Node, flow, configuration=None):
-        super(SaveImage_NodeInstance, self).__init__(parent_node, flow, configuration)
+        super(Resize_NodeInstance, self).__init__(parent_node, flow, configuration)
 
         # self.special_actions['action name'] = self.actionmethod ...
-        self.image_filepath = ''
-        self.img = None
-        self.inputs[1].widget.path_chosen.connect(self.path_chosen)
+        # ...
 
         self.initialized()
 
+    # don't call self.update_event() directly, use self.update() instead
     def update_event(self, input_called=-1):
-        if input_called != 0:
-            print("Passing...")
-            return
-
-        self.img = self.input(2)
-        try:
-            print('Saving to path:', self.image_filepath)
-            cv2.imwrite(self.image_filepath, self.img)
-            self.main_widget.set_path_text(self.image_filepath)
-        except Exception as e:
-            self.main_widget.setText('Invalid path.')
-            print(e)
+        image = self.input(0)
+        newsize = self.input(1)
+        result = cv2.resize(image, newsize)
+        self.outputs[0].set_val(result)
+        
 
     def get_data(self):
-        data = {'image file path': self.image_filepath}
+        data = {}
+        # ...
         return data
 
     def set_data(self, data):
-        self.image_filepath = data['image file path']
-
-    def path_chosen(self, file_path):
-        self.image_filepath = file_path
-        self.update()
+        pass # ...
 
 
 

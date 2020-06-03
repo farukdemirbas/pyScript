@@ -40,9 +40,13 @@ class %NODE_TITLE%_NodeInstance(NodeInstance):
         self.initialized()
 
     def update_event(self, input_called=-1):
+        if input_called != 0:
+            print("Passing...")
+            return
+
         self.img = self.input(2)
         try:
-            print('path:', self.image_filepath)
+            print('Saving to path:', self.image_filepath)
             cv2.imwrite(self.image_filepath, self.img)
             self.main_widget.set_path_text(self.image_filepath)
         except Exception as e:
